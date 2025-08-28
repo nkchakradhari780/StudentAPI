@@ -8,7 +8,7 @@ import (
 )
 
 type HttpServer struct {
-	Addr string `yaml:"address"`
+	Addr string `yaml:"address" env-required:"true"`
 }
 type Config struct {
 	Env         string     `yaml:"env" env:"ENV" env-required: "true" env-default:"production"`
@@ -22,7 +22,7 @@ func MustLoad() *Config {
 	configPath =  os.Getenv("CONFIG_PATH")
 
 	if configPath == "" {
-		flags := flag.String("config", "", "Path to the config file")
+		flags := flag.String("config", "config/local.yaml", "Path to the config file")
 		flag.Parse()
 		configPath = *flags
 
